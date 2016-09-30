@@ -3,13 +3,11 @@ using System.Collections;
 
 public class Pickup : MonoBehaviour {
 
-	// Use this for initialization
+    FixedJoint joint;
+    
 	void Start () {
-	
+        joint = GetComponent<FixedJoint>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	 
 }
