@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class Unlocker_drawer : Unlocker {
 
-    public new bool locked { get; private set; }
-    public float closedThershold = 0.01f;
+    [SerializeField]
+    private bool locked;
+    public double closedThershold = 0.01;
 
     private ConfigurableJoint joint;
 
@@ -12,8 +14,12 @@ public class Unlocker_drawer : Unlocker {
         joint = GetComponent<ConfigurableJoint>();
     }
 
+    public override bool isLocked() {
+        return locked;
+    }
+
     public override bool getClosed() {
-        return transform.position.z < closedThershold;
+        return Mathf.Abs(transform.localPosition.z) < closedThershold;
     }
 
     public override void Lock() {

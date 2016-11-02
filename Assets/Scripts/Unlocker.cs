@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class Unlocker : MonoBehaviour {
 
-    public bool locked { get; private set; }
+    public abstract bool isLocked();
 
     public abstract bool getClosed();
 
