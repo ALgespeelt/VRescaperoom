@@ -1,4 +1,4 @@
-﻿// Button|Controls3D|0020
+// Button|Controls3D|0020
 namespace VRTK
 {
     using UnityEngine;
@@ -237,7 +237,7 @@ namespace VRTK
         private void FixedUpdate()
         {
             // update reference position if no force is acting on the button to support scenarios where the button is moved at runtime with a connected body
-            if (forceCount == 0 && cj.connectedBody)
+            if (forceCount == 0 && false)
             {
                 restingPosition = transform.position;
             }
