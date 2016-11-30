@@ -1,4 +1,4 @@
-﻿// Knob|Controls3D|0060
+// Knob|Controls3D|0060
 namespace VRTK
 {
     using UnityEngine;
@@ -77,7 +77,7 @@ namespace VRTK
         {
             if (!rb) return;
 
-            rb.constraints = RigidbodyConstraints.FreezeAll;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
             switch (direction)
             {
                 case KnobDirection.x:

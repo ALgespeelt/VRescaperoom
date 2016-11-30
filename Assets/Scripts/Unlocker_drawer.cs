@@ -25,13 +25,11 @@ public class Unlocker_drawer : Unlocker {
     public override void Lock() {
         joint.zMotion = ConfigurableJointMotion.Locked;
         locked = true;
-        Debug.logger.Log("locked");
     }
 
     public override void Unlock() {
         joint.zMotion = ConfigurableJointMotion.Limited;
         locked = false;
-        Debug.logger.Log("unlocked");
     }
 
 }
