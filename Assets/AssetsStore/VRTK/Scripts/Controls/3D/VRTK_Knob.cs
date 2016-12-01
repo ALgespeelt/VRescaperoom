@@ -77,7 +77,7 @@ namespace VRTK
         {
             if (!rb) return;
 
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
             switch (direction)
             {
                 case KnobDirection.x:

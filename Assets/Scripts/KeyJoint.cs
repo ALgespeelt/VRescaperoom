@@ -10,12 +10,8 @@ public class KeyJoint : MonoBehaviour
 
     private FinishAction onFinish;
     private Quaternion targetAngle;
-    private Quaternion rot;
-    private float rotation;
 
     void FixedUpdate() {
-        rotation = Quaternion.Angle(transform.rotation, targetAngle);
-        rot = transform.localRotation;
         if (inserted) {
             if (Quaternion.Angle(transform.rotation, targetAngle) <= threshold) {
                 onFinish();
