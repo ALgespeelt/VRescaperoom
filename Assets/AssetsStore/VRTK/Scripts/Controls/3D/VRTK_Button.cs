@@ -237,7 +237,7 @@ namespace VRTK
         private void FixedUpdate()
         {
             // update reference position if no force is acting on the button to support scenarios where the button is moved at runtime with a connected body
-            if (forceCount == 0 && false)
+            if (forceCount == 0)
             {
                 restingPosition = transform.position;
             }
