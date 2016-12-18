@@ -23,11 +23,11 @@ public class Radio : MonoBehaviour {
         }
         float noise = Mathf.Clamp(widthMulitplier * Mathf.Pow(normValue - closestFrequency, 4) - 80f, -80f, 0f);
         radioMixer.SetFloat("noise", noise);
-        Debug.Log(noise);
     }
 
     public void onOff() {
         state = !state;
         radioMixer.SetFloat("master", state? -80f: 0f);
+        Debug.Log(state);
     }
 }
