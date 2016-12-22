@@ -10,7 +10,16 @@ public class Radio : MonoBehaviour {
     public List<float> frequencys;
     public float widthMulitplier;
 
-    bool state = true;
+    [SerializeField] bool state = true;
+
+    AudioMixerSnapshot[] snapshots = new AudioMixerSnapshot[2];
+
+    void Start() {
+        snapshots[0] = radioMixer.FindSnapshot("off");
+        snapshots[1] = radioMixer.FindSnapshot("on");
+
+        setState(state);
+    }
 
     public void changeFrequency(float normValue, float value) { 
         float closestFrequency = 0;
@@ -27,7 +36,11 @@ public class Radio : MonoBehaviour {
 
     public void onOff() {
         state = !state;
-        radioMixer.SetFloat("master", state? -80f: 0f);
-        Debug.Log(state);
+        setState(state);
+    }
+
+    void setState(bool state) {
+        float[] weights = new float[] { state ? 0 : 1, state ? 1 : 0 };
+        radioMixer.TransitionToSnapshots(snapshots, weights, 0.01f);
     }
 }
