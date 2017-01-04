@@ -22,18 +22,10 @@ public class Screwin : MonoBehaviour {
 
     void FixedUpdate() {
         if (bulb != null) {
-            if (bulb.transform.position == bulbOrigin.position && bulb.transform.rotation == bulbOrigin.rotation) {
-                cj.connectedBody = bulbRb;
-            }
-
             if (cj.connectedBody != null) {
-                rotation += Quaternion.Angle(bulb.transform.rotation, oldRotation);
-                if (Quaternion.Angle(bulb.transform.rotation, oldRotation) > 0) {
-                    Debug.Log(Quaternion.Angle(bulb.transform.rotation, oldRotation));
-                }
+                rotation += (Quaternion.Inverse(bulb.transform.rotation)*oldRotation).eulerAngles.y;
 
-                Vector3 newPos = Vector3.up * (bulb.transform.position.y + rotation / 10);
-                bulbRb.MovePosition(newPos);
+                
 
                 oldRotation = bulb.transform.rotation;
             }
@@ -45,10 +37,10 @@ public class Screwin : MonoBehaviour {
             bulb = col.transform.parent.gameObject;
             bulbRb = bulb.GetComponent<Rigidbody>();
 
-            bulbRb.MovePosition(bulbOrigin.position);
-            bulbRb.MoveRotation(bulbOrigin.rotation);
+            bulb.transform.position = bulbOrigin.position;
+            bulb.transform.rotation = bulbOrigin.rotation;
 
-            bulbRb.isKinematic = true;
+            cj.connectedBody = bulbRb;
 
             rotation = 0f;
             oldRotation = bulb.transform.rotation;
