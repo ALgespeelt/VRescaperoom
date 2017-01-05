@@ -41,6 +41,6 @@ public class Radio : MonoBehaviour {
 
     void setState(bool state) {
         float[] weights = new float[] { state ? 0 : 1, state ? 1 : 0 };
-        radioMixer.TransitionToSnapshots(snapshots, weights, 0.01f);
+        radioMixer.TransitionToSnapshots(snapshots, weights, 0f);
     }
 }
