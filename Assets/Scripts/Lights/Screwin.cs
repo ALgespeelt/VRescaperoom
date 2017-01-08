@@ -7,15 +7,20 @@ public class Screwin : MonoBehaviour {
     Transform bulbOrigin;
     [SerializeField]
     float maxRotation;
+    [SerializeField]
+    float positionLimit;
+
 
     GameObject bulb;
     Rigidbody bulbRb;
     Quaternion oldRotation;
+    Quaternion initialRotation;
     float rotation = 0f;
 
-    ConfigurableJoint cj;
+    JointDrive xdrive;
 
-	// Use this for initialization
+    ConfigurableJoint cj;
+    
 	void Start () {
         cj = GetComponent<ConfigurableJoint>();
 	}
@@ -23,9 +28,19 @@ public class Screwin : MonoBehaviour {
     void FixedUpdate() {
         if (bulb != null) {
             if (cj.connectedBody != null) {
-                rotation += (Quaternion.Inverse(bulb.transform.rotation)*oldRotation).eulerAngles.y;
+                float angle =  oldRotation.eulerAngles.y - bulb.transform.rotation.eulerAngles.y;
+                angle = Mathf.Round(angle * 1000f) / 1000f;
+                if (angle > 0 && angle <= 180) {
+                    rotation += Quaternion.Angle(oldRotation, bulb.transform.rotation);
+                } else {
+                    rotation -= Quaternion.Angle(oldRotation, bulb.transform.rotation);
+                }
 
-                
+                if (rotation < 0 ) {
+                    EjectBulb();
+                }
+
+                cj.targetPosition = Vector3.right * (Mathf.InverseLerp(0, maxRotation, rotation) * positionLimit * 2 - positionLimit);
 
                 oldRotation = bulb.transform.rotation;
             }
@@ -33,18 +48,36 @@ public class Screwin : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider col) {
-        if (bulb == null) {
-            bulb = col.transform.parent.gameObject;
-            bulbRb = bulb.GetComponent<Rigidbody>();
+        if (col.tag == "bulb") {
+            if (bulb == null) {
+                bulb = col.transform.parent.gameObject;
+                bulbRb = bulb.GetComponent<Rigidbody>();
 
-            bulb.transform.position = bulbOrigin.position;
-            bulb.transform.rotation = bulbOrigin.rotation;
+                bulb.transform.position = bulbOrigin.position;
+                bulb.transform.rotation = bulbOrigin.rotation;
 
-            cj.connectedBody = bulbRb;
+                cj.connectedBody = bulbRb;
 
-            rotation = 0f;
-            oldRotation = bulb.transform.rotation;
-            Debug.Log(bulb.name + "connected to lamp");
+                bulbRb.useGravity = false;
+
+                rotation = 0f;
+                oldRotation = bulb.transform.rotation;
+                initialRotation = oldRotation;
+            }
         }
+    }
+
+    void OnTiggerLeave(Collider col) {
+        if (col.tag == "bulb") {
+            EjectBulb();
+        }
+    }
+
+    void EjectBulb() {
+        bulbRb.useGravity = true;
+
+        bulb = null;
+        bulbRb = null;
+        cj.connectedBody = null;
     }
 }
