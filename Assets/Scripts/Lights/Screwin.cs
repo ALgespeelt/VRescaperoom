@@ -9,16 +9,16 @@ public class Screwin : MonoBehaviour {
     float maxRotation;
     [SerializeField]
     float positionLimit;
-
+    [SerializeField]
+    LightManager lightM;
 
     GameObject bulb;
     Rigidbody bulbRb;
+    Bulb bulbBulb;
     Quaternion oldRotation;
     Quaternion initialRotation;
     float rotation = 0f;
-
-    JointDrive xdrive;
-
+    
     ConfigurableJoint cj;
     
 	void Start () {
@@ -40,6 +40,11 @@ public class Screwin : MonoBehaviour {
                     EjectBulb();
                 }
 
+                if(rotation> maxRotation) {
+                    bulb.transform.rotation = oldRotation;
+                    rotation = maxRotation;
+                }
+
                 cj.targetPosition = Vector3.right * (Mathf.InverseLerp(0, maxRotation, rotation) * positionLimit * 2 - positionLimit);
 
                 oldRotation = bulb.transform.rotation;
@@ -52,6 +57,7 @@ public class Screwin : MonoBehaviour {
             if (bulb == null) {
                 bulb = col.transform.parent.gameObject;
                 bulbRb = bulb.GetComponent<Rigidbody>();
+                bulbBulb = bulb.GetComponent<Bulb>();
 
                 bulb.transform.position = bulbOrigin.position;
                 bulb.transform.rotation = bulbOrigin.rotation;
@@ -59,6 +65,8 @@ public class Screwin : MonoBehaviour {
                 cj.connectedBody = bulbRb;
 
                 bulbRb.useGravity = false;
+
+                lightM.StateEvent.AddListener(bulb.GetComponentInChildren<EmissionSwitcher>().setEmission);
 
                 rotation = 0f;
                 oldRotation = bulb.transform.rotation;
@@ -76,8 +84,23 @@ public class Screwin : MonoBehaviour {
     void EjectBulb() {
         bulbRb.useGravity = true;
 
+        lightM.StateEvent.RemoveListener(bulb.GetComponentInChildren<EmissionSwitcher>().setEmission);
+
+        rotation = 0;
+
         bulb = null;
         bulbRb = null;
         cj.connectedBody = null;
+    }
+
+    public LightManager.LightState GetLightType() {
+        if (bulbBulb == null) {
+            return LightManager.LightState.Normal;
+        }
+        return bulbBulb.state;
+    }
+
+    public bool GetState() {
+        return rotation >= maxRotation;
     }
 }

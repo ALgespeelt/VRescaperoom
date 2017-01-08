@@ -3,31 +3,34 @@ using System.Collections;
 
 public class EmissionSwitcher : MonoBehaviour {
 
-    public Color emmission;
-    public bool switchTexture = false;
-    public Texture emissionTexture;
+    [SerializeField]
+    [ColorUsageAttribute(false, true, 0, 100f, 0.125f, 3f)]
+    Color emmission;
+    [SerializeField]
+    bool switchTexture = false;
+    [SerializeField]
+    Texture emissionTexture;
 
     Color initEmmission;
     Texture initEmissionTexture;
+
+    bool prevState = false;
 
     Renderer rnd;
 
     void Start() {
         rnd = GetComponent<Renderer>();
-    }
 
-    void OnEnable() {
-        EmissionToggle.SetEmission += setEmission;
-    }
-
-    void OnDisable() {
-        EmissionToggle.SetEmission -= setEmission;
+        initEmmission = rnd.material.GetColor("_EmissionColor");
+        initEmissionTexture = rnd.material.GetTexture("_EmissionMap");
     }
 
     public void setEmission(bool toggle) {
         if (toggle) {
-            initEmmission = rnd.material.GetColor("_EmissionColor");
-            initEmissionTexture = rnd.material.GetTexture("_EmissionMap");
+            if (!prevState) {
+                initEmmission = rnd.material.GetColor("_EmissionColor");
+                initEmissionTexture = rnd.material.GetTexture("_EmissionMap");
+            }
 
             rnd.material.SetColor("_EmissionColor", emmission);
             if (switchTexture) {
@@ -39,6 +42,7 @@ public class EmissionSwitcher : MonoBehaviour {
                 rnd.material.SetTexture("_EmissionMap", initEmissionTexture);
             }
         }
+        prevState = toggle;
     }
 
 }
