@@ -1,4 +1,4 @@
-﻿// SteamVR Controller|SDK_SteamVR|003
+// SteamVR Controller|SDK_SteamVR|003
 namespace VRTK
 {
 #if VRTK_SDK_STEAMVR
@@ -729,7 +729,7 @@ namespace VRTK
         [RuntimeInitializeOnLoadMethod]
         private void Initialise()
         {
-            SteamVR_Utils.Event.Listen("TrackedDeviceRoleChanged", OnTrackedDeviceRoleChanged);
+            //SteamVR_Utils.Event.Listen("TrackedDeviceRoleChanged", OnTrackedDeviceRoleChanged);
             SetTrackedControllerCaches(true);
         }
 
