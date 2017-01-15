@@ -101,6 +101,7 @@ public class Screwin : MonoBehaviour {
     }
 
     public bool GetState() {
-        return rotation >= maxRotation;
+        //return rotation >= maxRotation;
+        return true;
     }
 }
