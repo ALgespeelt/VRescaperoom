@@ -7,7 +7,7 @@ public class CollsionSoundEffect : MonoBehaviour {
     [SerializeField]
     float soundThreshold = 2f;
 
-    private AudioSource audio;
+    new private AudioSource audio;
 
     void Start() {
         audio = GetComponent<AudioSource>();
