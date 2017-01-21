@@ -1,0 +1,170 @@
+fileFormatVersion: 2
+guid: b6dae716a41fe274395f2c321567643f
+timeCreated: 1485001374
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Line001
+    100004: Line002
+    100006: Line003
+    100008: Line006
+    100010: Line007
+    100012: Line009
+    100014: Plane001
+    100016: Rectangle0
+    100018: Shape001
+    100020: Shape002
+    100022: Shape003
+    100024: Shape004
+    100026: Shape005
+    100028: sub01
+    100030: sub02
+    100032: sub02_MeshPart0
+    100034: sub02_MeshPart1
+    100036: sub03
+    100038: sub04
+    400000: //RootNode
+    400002: Line001
+    400004: Line002
+    400006: Line003
+    400008: Line006
+    400010: Line007
+    400012: Line009
+    400014: Plane001
+    400016: Rectangle0
+    400018: Shape001
+    400020: Shape002
+    400022: Shape003
+    400024: Shape004
+    400026: Shape005
+    400028: sub01
+    400030: sub02
+    400032: sub02_MeshPart0
+    400034: sub02_MeshPart1
+    400036: sub03
+    400038: sub04
+    2300000: Line001
+    2300002: Line002
+    2300004: Line003
+    2300006: Line006
+    2300008: Line007
+    2300010: Line009
+    2300012: Plane001
+    2300014: Rectangle0
+    2300016: Shape002
+    2300018: Shape003
+    2300020: Shape004
+    2300022: Shape005
+    2300024: sub01
+    2300026: sub02_MeshPart0
+    2300028: sub02_MeshPart1
+    2300030: sub03
+    2300032: sub04
+    2300034: sub02
+    3300000: Line001
+    3300002: Line002
+    3300004: Line003
+    3300006: Line006
+    3300008: Line007
+    3300010: Line009
+    3300012: Plane001
+    3300014: Rectangle0
+    3300016: Shape002
+    3300018: Shape003
+    3300020: Shape004
+    3300022: Shape005
+    3300024: sub01
+    3300026: sub02_MeshPart0
+    3300028: sub02_MeshPart1
+    3300030: sub03
+    3300032: sub04
+    3300034: sub02
+    4300000: Shape002
+    4300002: Line009
+    4300004: Rectangle0
+    4300006: Shape005
+    4300008: Plane001
+    4300010: Shape004
+    4300012: sub01
+    4300014: sub02_MeshPart0
+    4300016: sub02_MeshPart1
+    4300018: sub03
+    4300020: sub04
+    4300022: Line001
+    4300024: Line006
+    4300026: Line007
+    4300028: Line002
+    4300030: Line003
+    4300032: Shape003
+    4300034: sub02
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 102
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
