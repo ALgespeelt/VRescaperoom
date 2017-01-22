@@ -11,6 +11,8 @@ public class Screwin : MonoBehaviour {
     float positionLimit;
     [SerializeField]
     LightManager lightM;
+    [SerializeField]
+    bool forceOn = false;
 
     GameObject bulb;
     Rigidbody bulbRb;
@@ -101,7 +103,6 @@ public class Screwin : MonoBehaviour {
     }
 
     public bool GetState() {
-        //return rotation >= maxRotation;
-        return true;
+        return forceOn || rotation >= maxRotation;
     }
 }
