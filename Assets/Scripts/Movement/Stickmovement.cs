@@ -50,8 +50,6 @@ public class Stickmovement : MonoBehaviour {
             Vector3 deltaPos = prevPos - transform.position;
 
             playArea.position = new Vector3(playArea.position.x + deltaPos.x, playArea.position.y, playArea.position.z + deltaPos.z);
-
-            Debug.Log(deltaPos);
         }
         rnd.material.color = intObj.IsUsing() & colliding ? Color.green : Color.white;
 

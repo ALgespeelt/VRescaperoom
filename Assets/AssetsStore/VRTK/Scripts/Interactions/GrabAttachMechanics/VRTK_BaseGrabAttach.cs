@@ -1,4 +1,4 @@
-﻿// Base Grab Attach|GrabAttachMechanics|50010
+// Base Grab Attach|GrabAttachMechanics|50010
 namespace VRTK.GrabAttachMechanics
 {
     using UnityEngine;
@@ -170,7 +170,7 @@ namespace VRTK.GrabAttachMechanics
             var grabbingObject = grabbedObjectScript.GetGrabbingObject();
             if (grabbingObject)
             {
-                grabbingObject.GetComponent<VRTK_InteractGrab>().ForceRelease();
+                grabbingObject.GetComponent<VRTK_InteractGrab>().ForceRelease(true);
             }
         }
 

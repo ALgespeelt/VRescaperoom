@@ -1,4 +1,4 @@
-﻿// Door|Controls3D|100040
+// Door|Controls3D|100040
 namespace VRTK
 {
     using UnityEngine;
@@ -22,6 +22,7 @@ namespace VRTK
         public GameObject door;
         [Tooltip("The game object for the handles. Can also be an empty parent or left empty. If empty the door can only be moved using the rigidbody mode of the controller. If no collider exists yet a compound collider made up of all children will try to be calculated but this will fail if the door is rotated. In that case a manual collider will need to be assigned.")]
         public GameObject handles;
+        public bool useFixedJoint = true;
         [Tooltip("The game object for the frame to which the door is attached. Should only be set if the frame will move as well to ensure that the door moves along with the frame.")]
         public GameObject frame;
         [Tooltip("The parent game object for the door content elements.")]
@@ -432,7 +433,7 @@ namespace VRTK
             handleRb.useGravity = false;
 
             handleFj = handles.GetComponent<FixedJoint>();
-            if (handleFj == null)
+            if (handleFj == null && useFixedJoint)
             {
                 handleFj = handles.AddComponent<FixedJoint>();
                 handleFj.connectedBody = doorRb;

@@ -7,7 +7,7 @@ public class Unlocker_safe : Unlocker {
     public Rigidbody safeRb;
     public float closesThreshold = 2f;
     [SerializeField] bool locked;
-    [SerializeField] Renderer rnd;
+    //[SerializeField] Renderer rnd;
     bool closed;
 
     RigidbodyConstraints initRbC;
@@ -29,7 +29,7 @@ public class Unlocker_safe : Unlocker {
 
     public void onDoorChange(float value, float normalized) {
         closed = normalized < closesThreshold;
-        rnd.material.color = closed ? Color.yellow : Color.white;
+        //rnd.material.color = closed ? Color.yellow : Color.white;
 
     }
 
