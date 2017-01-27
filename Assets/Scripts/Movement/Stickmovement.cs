@@ -13,6 +13,7 @@ public class Stickmovement : MonoBehaviour {
     Vector3 prevPos;
 
     VRTK.VRTK_InteractableObject intObj;
+    Haptics haptic;
     List<Collider> cols;
 
     MeshRenderer rnd;
@@ -27,6 +28,7 @@ public class Stickmovement : MonoBehaviour {
         playArea = VRTK.VRTK_DeviceFinder.PlayAreaTransform();
         intObj = GetComponent<VRTK.VRTK_InteractableObject>();
         cols = GetComponentsInChildren<Collider>().ToList<Collider>();
+        haptic = GetComponent<Haptics>();
 
         intObj.InteractableObjectUsed += OnUse;
         intObj.InteractableObjectUnused += OnUnuse;
@@ -78,6 +80,8 @@ public class Stickmovement : MonoBehaviour {
 
     void OnTriggerEnter() {
         colliding = true;
+        if (haptic && use)
+            haptic.TriggerGrabbingHaptics(0.3f);
     }
 
     void OnTriggerExit() {
