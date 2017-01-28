@@ -6,6 +6,11 @@ using UnityEngine;
 [RequireComponent(typeof(VRTK.VRTK_InteractableObject))]
 public class Stickmovement : MonoBehaviour {
 
+    [SerializeField]
+    Transform smoothingPos;
+    [SerializeField] [Range(0f, 1f)]
+    float smoothing;
+
     bool use = false;
 
     bool colliding = false;
@@ -20,6 +25,9 @@ public class Stickmovement : MonoBehaviour {
 
     void Start() {
         prevPos = transform.position;
+
+        smoothingPos = playArea;
+
 
         rnd = GetComponentInChildren<MeshRenderer>();
     }
@@ -51,7 +59,9 @@ public class Stickmovement : MonoBehaviour {
         if (use && colliding) {
             Vector3 deltaPos = prevPos - transform.position;
 
-            playArea.position = new Vector3(playArea.position.x + deltaPos.x, playArea.position.y, playArea.position.z + deltaPos.z);
+            smoothingPos.position = new Vector3(smoothingPos.position.x + deltaPos.x, smoothingPos.position.y, smoothingPos.position.z + deltaPos.z);
+
+            playArea.position = Vector3.Lerp(playArea.position, smoothingPos.position, smoothing);
         }
         rnd.material.color = intObj.IsUsing() & colliding ? Color.green : Color.white;
 

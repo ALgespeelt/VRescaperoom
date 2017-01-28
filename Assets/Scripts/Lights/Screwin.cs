@@ -13,13 +13,16 @@ public class Screwin : MonoBehaviour {
     LightManager lightM;
     [SerializeField]
     bool forceOn = false;
+    [SerializeField]
+    float angularDrag;
 
     GameObject bulb;
     Rigidbody bulbRb;
     Bulb bulbBulb;
     Quaternion oldRotation;
-    Quaternion initialRotation;
     float rotation = 0f;
+
+    float initialDrag = 1f;
     
     ConfigurableJoint cj;
     
@@ -40,6 +43,7 @@ public class Screwin : MonoBehaviour {
 
                 if (rotation < 0 ) {
                     EjectBulb();
+                    return;
                 }
 
                 if(rotation> maxRotation) {
@@ -67,12 +71,13 @@ public class Screwin : MonoBehaviour {
                 cj.connectedBody = bulbRb;
 
                 bulbRb.useGravity = false;
+                initialDrag = bulbRb.angularDrag;
+                bulbRb.angularDrag = angularDrag;
 
                 lightM.StateEvent.AddListener(bulb.GetComponentInChildren<EmissionSwitcher>().setEmission);
 
                 rotation = 0f;
                 oldRotation = bulb.transform.rotation;
-                initialRotation = oldRotation;
             }
         }
     }
@@ -85,6 +90,7 @@ public class Screwin : MonoBehaviour {
 
     void EjectBulb() {
         bulbRb.useGravity = true;
+        bulbRb.angularDrag = initialDrag;
 
         lightM.StateEvent.RemoveListener(bulb.GetComponentInChildren<EmissionSwitcher>().setEmission);
 

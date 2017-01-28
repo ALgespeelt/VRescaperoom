@@ -25,7 +25,6 @@ public class LampJokes : MonoBehaviour {
         if(col.relativeVelocity.magnitude > minVel) {
             string joke = jokes[Random.Range(0, jokes.Length)];
             jokesDisplay.text = joke.Replace("<br>", "\n\n");
-            print(joke);
         }
     }
 }
