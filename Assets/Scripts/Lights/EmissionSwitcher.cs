@@ -9,10 +9,7 @@ public class EmissionSwitcher : MonoBehaviour {
     [SerializeField]
     bool switchTexture = false;
     [SerializeField]
-    Texture emissionTexture;
-
-    Color initEmmission;
-    Texture initEmissionTexture;
+    bool useLightmanagerEvent;
 
     bool prevState = false;
 
@@ -20,27 +17,19 @@ public class EmissionSwitcher : MonoBehaviour {
 
     void Start() {
         rnd = GetComponent<Renderer>();
+        rnd.material.SetColor("_EmissionColor", Color.black);
 
-        initEmmission = rnd.material.GetColor("_EmissionColor");
-        initEmissionTexture = rnd.material.GetTexture("_EmissionMap");
+        if (useLightmanagerEvent) {
+            GameObject.FindGameObjectWithTag("Lightmanager").GetComponent<LightManager>()
+                .UVEvent.AddListener(setEmission);
+        }
     }
 
     public void setEmission(bool toggle) {
         if (toggle) {
-            if (!prevState) {
-                initEmmission = rnd.material.GetColor("_EmissionColor");
-                initEmissionTexture = rnd.material.GetTexture("_EmissionMap");
-            }
-
             rnd.material.SetColor("_EmissionColor", emmission);
-            if (switchTexture) {
-                rnd.material.SetTexture("_EmissionMap", emissionTexture);
-            }
         } else {
-            rnd.material.SetColor("_EmissionColor", initEmmission);
-            if (switchTexture) {
-                rnd.material.SetTexture("_EmissionMap", initEmissionTexture);
-            }
+            rnd.material.SetColor("_EmissionColor", Color.black);
         }
         prevState = toggle;
     }

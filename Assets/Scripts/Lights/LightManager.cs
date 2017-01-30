@@ -27,8 +27,7 @@ public class LightManager : MonoBehaviour {
     Screwin socket;
     [SerializeField]
     public BoolEvent StateEvent;
-    [SerializeField]
-    BoolEvent UVEvent;
+    public BoolEvent UVEvent;
 
     Color normalColor;
     float normalIntensity;
