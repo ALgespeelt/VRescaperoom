@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LampJokes : MonoBehaviour {
 
     [SerializeField]
-    string pathToFile = "";
+    TextAsset file;
     [SerializeField]
     float minVel;
     
@@ -16,7 +16,7 @@ public class LampJokes : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        jokes = File.ReadAllLines(pathToFile);
+        jokes = file.text.Split("\n"[0]);
 
         jokesDisplay = GameObject.FindGameObjectWithTag("JokesDisplay").GetComponent<Text>();
     }

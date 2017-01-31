@@ -11,10 +11,6 @@ ModelImporter:
     3300000: //RootNode
     4300000: knopje
     9500000: //RootNode
-  materials:
-    importMaterials: 1
-    materialName: 0
-    materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -33,23 +29,6 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations: []
     isReadable: 1
-  meshes:
-    lODScreenPercentages: []
-    globalScale: 1
-    meshCompression: 0
-    addColliders: 0
-    importBlendShapes: 1
-    swapUVChannels: 0
-    generateSecondaryUV: 0
-    useFileUnits: 1
-    optimizeMeshForGPU: 1
-    keepQuads: 0
-    weldVertices: 1
-    secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15.000001
-    secondaryUVHardAngle: 88
-    secondaryUVPackMargin: 4
-    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
