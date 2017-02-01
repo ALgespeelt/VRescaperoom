@@ -28,6 +28,10 @@ public class Screwin : MonoBehaviour {
     
 	void Start () {
         cj = GetComponent<ConfigurableJoint>();
+
+        if (forceOn) {
+            rotation = maxRotation;
+        }
 	}
 
     void FixedUpdate() {
@@ -109,6 +113,6 @@ public class Screwin : MonoBehaviour {
     }
 
     public bool GetState() {
-        return forceOn || rotation >= maxRotation;
+        return rotation >= maxRotation;
     }
 }

@@ -5,7 +5,7 @@ public class EmissionSwitcher : MonoBehaviour {
 
     [SerializeField]
     [ColorUsageAttribute(false, true, 0, 100f, 0.125f, 3f)]
-    Color emmission;
+    public Color emmission;
     [SerializeField]
     bool switchTexture = false;
     [SerializeField]

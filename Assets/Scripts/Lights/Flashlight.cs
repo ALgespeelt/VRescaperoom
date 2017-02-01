@@ -28,6 +28,9 @@ public class Flashlight : MonoBehaviour {
             onIntensities[i] = lights[i].intensity;
             lights[i].intensity = state ? lights[i].intensity : 0f;
         }
+        foreach (EmissionSwitcher emmision in emmisions) {
+            emmision.setEmission(state);
+        }
     }
 
     void OnDisable() {
