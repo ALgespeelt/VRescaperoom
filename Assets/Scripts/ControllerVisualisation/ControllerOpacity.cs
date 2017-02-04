@@ -18,6 +18,10 @@ public class ControllerOpacity : MonoBehaviour {
         controllerActions = GetComponent<VRTK.VRTK_ControllerActions>();
     }
 
+    void OnEnable() {
+        controllerActions.SetControllerOpacity(touch.IsRigidBodyActive() ? 1f : opactity);
+    }
+
 	void Update() {
         if (touch.IsRigidBodyActive() != rbPrevActive) {
             controllerActions.SetControllerOpacity(touch.IsRigidBodyActive() ? 1f : opactity);

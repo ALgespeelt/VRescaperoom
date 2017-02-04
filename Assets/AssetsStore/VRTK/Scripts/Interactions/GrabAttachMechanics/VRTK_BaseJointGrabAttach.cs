@@ -1,4 +1,4 @@
-﻿// Base Joint Grab Attach|GrabAttachMechanics|50020
+// Base Joint Grab Attach|GrabAttachMechanics|50020
 namespace VRTK.GrabAttachMechanics
 {
     using UnityEngine;
@@ -14,7 +14,7 @@ namespace VRTK.GrabAttachMechanics
         [Header("Joint Options", order = 2)]
 
         [Tooltip("Determines whether the joint should be destroyed immediately on release or whether to wait till the end of the frame before being destroyed.")]
-        public bool destroyImmediatelyOnThrow = true;
+        public bool destroyImmediatelyOnThrow = false;
 
         protected Joint givenJoint;
         protected Joint controllerAttachJoint;

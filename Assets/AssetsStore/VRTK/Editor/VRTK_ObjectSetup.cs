@@ -1,4 +1,4 @@
-﻿namespace VRTK
+namespace VRTK
 {
     using UnityEngine;
     using UnityEditor;
@@ -29,10 +29,11 @@
         private bool useIfGrabbed = false;
         private bool holdUse = false;
         private PrimaryGrab primGrab;
+        private bool PrecisionGrab = true;
         private SecondaryGrab secGrab;
         private bool disableIdle = true;
         private bool addrb = true;
-        private bool addHaptics = true;
+        private bool addHaptics = false;
         private Color touchColor = Color.clear;
 
         [MenuItem("Window/VRTK/Setup Interactable Object")]
@@ -60,6 +61,8 @@
             holdGrab = EditorGUILayout.Toggle("Hold Button To Grab", holdGrab);
             EditorGUILayout.Space();
             primGrab = (PrimaryGrab)EditorGUILayout.EnumPopup("Grab Attach Mechanic", primGrab);
+            PrecisionGrab = EditorGUILayout.Toggle("PrecisionGrab", PrecisionGrab);
+            EditorGUILayout.Space();
             secGrab = (SecondaryGrab)EditorGUILayout.EnumPopup("Secondary Grab Attach", secGrab);
             EditorGUILayout.Space();
 
@@ -108,6 +111,7 @@
                         break;
                     case PrimaryGrab.FixedJoint:
                         grab = go.AddComponent<VRTK_FixedJointGrabAttach>();
+                        grab.precisionGrab = PrecisionGrab;
                         break;
                     case PrimaryGrab.Climbable:
                         grab = go.AddComponent<VRTK_ClimbableGrabAttach>();
