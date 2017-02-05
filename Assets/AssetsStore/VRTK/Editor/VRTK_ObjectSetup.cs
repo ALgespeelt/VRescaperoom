@@ -33,6 +33,7 @@ namespace VRTK
         private SecondaryGrab secGrab;
         private bool disableIdle = true;
         private bool addrb = true;
+        private bool addbc = false;
         private bool addHaptics = false;
         private Color touchColor = Color.clear;
 
@@ -75,6 +76,7 @@ namespace VRTK
             EditorGUILayout.LabelField("Misc Options", EditorStyles.boldLabel);
             disableIdle = EditorGUILayout.Toggle("Disable On Idle", disableIdle);
             addrb = EditorGUILayout.Toggle("Add RigidBody", addrb);
+            addbc = EditorGUILayout.Toggle("Add Box Collider", addbc);
             addHaptics = EditorGUILayout.Toggle("Add Haptics", addHaptics);
             EditorGUILayout.Space();
 
@@ -160,6 +162,12 @@ namespace VRTK
                     if(rb == null)
                     {
                         go.AddComponent<Rigidbody>();
+                    }
+                }
+                if (addbc) {
+                    BoxCollider bc = go.GetComponent<BoxCollider>();
+                    if(bc == null) {
+                        go.AddComponent<BoxCollider>();
                     }
                 }
                 if(addHaptics)
