@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class Radio : MonoBehaviour {
 
     public AudioMixer radioMixer;
-    [Range(80.3f, 108f)] 
+    [Range(87.3f, 108f)] 
     public List<float> frequencys;
     public float widthMulitplier;
 
