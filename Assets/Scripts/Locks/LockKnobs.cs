@@ -23,17 +23,14 @@ public class LockKnobs : MonoBehaviour {
     public void OnLeverChange(float abso, float norm) {
         if (unlocker.getClosed()) {
             for (int i = 0; i < knobs.Count; i++) {
-                Debug.Log(knobs[i].GetNormalizedValue());
                 if (Mathf.RoundToInt(knobs[i].GetNormalizedValue()) != correctValues[i]) {
                     return;
                 }
             }
             if(norm < handleThreshold) {
                 Unlock();
-                Debug.Log("unlocking");
             } else if (norm > 100f - handleThreshold) {
                 Lock();
-                Debug.Log("locking");
             }
         }
     }

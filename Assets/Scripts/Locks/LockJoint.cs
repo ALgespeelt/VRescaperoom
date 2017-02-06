@@ -16,22 +16,12 @@ public class LockJoint : MonoBehaviour {
         rnd = GetComponent<Renderer>();
     }
 
-   void Update() {
-        if (unlocker.getClosed()) {
-            transform.GetChild(0).GetComponent<Renderer>().material.color = Color.yellow;
-        } else {
-            transform.GetChild(0).GetComponent<Renderer>().material.color = Color.white;
-        }
-    }
-
     public void Unlock() {
         unlocker.Unlock();
-        rnd.material.color = Color.green;
     }
 
     public void Lock() {
         unlocker.Lock();
-        rnd.material.color = Color.red;
     }
 
     void OnTriggerEnter(Collider col) {

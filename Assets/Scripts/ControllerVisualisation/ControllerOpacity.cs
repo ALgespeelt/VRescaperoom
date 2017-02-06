@@ -8,7 +8,7 @@ public class ControllerOpacity : MonoBehaviour {
     [SerializeField, Range(0f, 1f)]
     float opactity;
     
-    bool rbPrevActive = false;
+    bool rbPrevActive = true;
 
     VRTK.VRTK_InteractTouch touch;
     VRTK.VRTK_ControllerActions controllerActions;
@@ -16,10 +16,6 @@ public class ControllerOpacity : MonoBehaviour {
     void Start() {
         touch = GetComponent<VRTK.VRTK_InteractTouch>();
         controllerActions = GetComponent<VRTK.VRTK_ControllerActions>();
-    }
-
-    void OnEnable() {
-        controllerActions.SetControllerOpacity(touch.IsRigidBodyActive() ? 1f : opactity);
     }
 
 	void Update() {

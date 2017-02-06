@@ -12,16 +12,18 @@ public class DistanceGrabTag : MonoBehaviour {
 
     VRTK.VRTK_ControllerEvents controllerEvents;
     VRTK.VRTK_InteractGrab grab;
+    VRTK.VRTK_InteractTouch touch;
 
     void OnEnable() {
         controllerEvents = GetComponent<VRTK.VRTK_ControllerEvents>();
         grab = GetComponent<VRTK.VRTK_InteractGrab>();
+        touch = GetComponent<VRTK.VRTK_InteractTouch>();
 
-        controllerEvents.AliasMenuOn += StartGrabTag;
+        controllerEvents.GripPressed += StartGrabTag;
     }
 
     void OnDisable() {
-        controllerEvents.AliasMenuOn -= StartGrabTag;
+        controllerEvents.GripPressed -= StartGrabTag;
     }
 
     public void StartGrabTag(object sender, VRTK.ControllerInteractionEventArgs args) {
@@ -29,23 +31,17 @@ public class DistanceGrabTag : MonoBehaviour {
         if (grabedObject) {
             VRTK.VRTK_InteractableObject intObj = grabedObject.GetComponent<VRTK.VRTK_InteractableObject>();
             if (intObj) {
-                Rigidbody rb = grabedObject.GetComponent<Rigidbody>();
-                if (rb) {
-                    if (intObj.grabAttachMechanicScript.precisionGrab) {
+                if (!intObj.IsGrabbed()) {
+                    Rigidbody rb = grabedObject.GetComponent<Rigidbody>();
+                    if (rb) {
                         rb.MovePosition(transform.position);
                     } else {
-                        rb.MovePosition(transform.position - intObj.grabAttachMechanicScript.rightSnapHandle.localPosition);
-                        rb.MoveRotation(intObj.grabAttachMechanicScript.rightSnapHandle.rotation);
-                    }
-                } else {
-                    if (intObj.grabAttachMechanicScript.precisionGrab) {
                         grabedObject.transform.position = transform.position;
-                    } else {
-                        grabedObject.transform.position = transform.position - intObj.grabAttachMechanicScript.rightSnapHandle.localPosition;
-                        grabedObject.transform.rotation = intObj.grabAttachMechanicScript.rightSnapHandle.rotation;
                     }
+                    touch.ForceStopTouching();
+                    touch.ForceTouch(grabedObject);
+                    grab.AttemptGrab();
                 }
-                grab.AttemptGrab();
             }
         }
     }
