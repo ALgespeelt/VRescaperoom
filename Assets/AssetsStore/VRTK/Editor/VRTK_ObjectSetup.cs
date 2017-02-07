@@ -120,12 +120,14 @@ namespace VRTK
                         break;
                     case PrimaryGrab.CustomJoint:
                         grab = go.AddComponent<VRTK_CustomJointGrabAttach>();
+                        grab.precisionGrab = PrecisionGrab;
                         break;
                     case PrimaryGrab.RotatorTrack:
                         grab = go.AddComponent<VRTK_RotatorTrackGrabAttach>();
                         break;
                     case PrimaryGrab.SpringJoint:
                         grab = go.AddComponent<VRTK_SpringJointGrabAttach>();
+                        grab.precisionGrab = PrecisionGrab;
                         break;
                     case PrimaryGrab.TrackObject:
                         grab = go.AddComponent<VRTK_TrackObjectGrabAttach>();

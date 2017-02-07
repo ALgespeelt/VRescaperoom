@@ -27,6 +27,8 @@ public class LockJoint : MonoBehaviour {
     void OnTriggerEnter(Collider col) {
         KeyJoint joint = col.GetComponent<KeyJoint>();
         if (joint != null) {
+            gameObject.layer = LayerMask.NameToLayer("keyuninteractable");
+
             string lockIden = joint.lockIdentifier;
             if (lockIden == lockIdentifier) {
                 if (unlocker.getClosed()) {
@@ -43,6 +45,7 @@ public class LockJoint : MonoBehaviour {
 
     void OnTriggerExit(Collider col) {
         if(col.gameObject == key) {
+            gameObject.layer = LayerMask.NameToLayer("keyuninteractable");
             key.GetComponent<KeyJoint>().eject();
         }
     }
