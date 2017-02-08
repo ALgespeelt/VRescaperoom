@@ -78,7 +78,8 @@ public class Screwin : MonoBehaviour {
                 initialDrag = bulbRb.angularDrag;
                 bulbRb.angularDrag = angularDrag;
 
-                lightM.StateEvent.AddListener(bulb.GetComponentInChildren<EmissionSwitcher>().setEmission);
+                EmissionSwitcher bulbEmmsionSwitcher = bulb.GetComponentInChildren<EmissionSwitcher>();
+                lightM.StateEvent.AddListener(bulbEmmsionSwitcher.setEmission);
 
                 rotation = 0f;
                 oldRotation = bulb.transform.rotation;
@@ -96,7 +97,9 @@ public class Screwin : MonoBehaviour {
         bulbRb.useGravity = true;
         bulbRb.angularDrag = initialDrag;
 
-        lightM.StateEvent.RemoveListener(bulb.GetComponentInChildren<EmissionSwitcher>().setEmission);
+        EmissionSwitcher bulbEmmsionSwitcher = bulb.GetComponentInChildren<EmissionSwitcher>();
+        lightM.StateEvent.RemoveListener(bulbEmmsionSwitcher.setEmission);
+        bulbEmmsionSwitcher.setEmission(false);
 
         rotation = 0;
 

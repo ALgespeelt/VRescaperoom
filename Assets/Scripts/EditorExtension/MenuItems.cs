@@ -22,7 +22,7 @@ public class MenuItems : MonoBehaviour {
         foreach (EmissionSwitcher switcher in switchers) {
             Material[] materials = switcher.GetComponent<MeshRenderer>().sharedMaterials;
             foreach (Material material in materials) {
-                material.SetColor("_EmissionColor", Color.black);
+                material.SetColor("_EmissionColor", Color.white*0.001f);
             }
         }
     }

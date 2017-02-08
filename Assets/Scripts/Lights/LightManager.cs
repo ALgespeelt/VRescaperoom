@@ -14,23 +14,21 @@ public class LightManager : MonoBehaviour {
         Normal,
         UV
     }
-
-    [SerializeField]
-    Color UVColor;
-    [SerializeField]
-    float UVIntensity;
+    
     [SerializeField]
     bool state;
     [SerializeField]
     LightState lightType;
     [SerializeField]
     Screwin socket;
-    [SerializeField]
+    [HideInInspector]
     public BoolEvent StateEvent;
     public BoolEvent UVEvent;
 
     Color normalColor;
     float normalIntensity;
+    LightState prevLightType;
+    bool prevScrewinState;
 
     private Light l;
 
@@ -43,13 +41,24 @@ public class LightManager : MonoBehaviour {
             UVEvent = new BoolEvent();
         }
 
+        if(StateEvent == null) {
+            StateEvent = new BoolEvent();
+        }
+
+        prevLightType = socket.GetLightType();
+        prevScrewinState = socket.GetState();
+
         SetLight();
     }
 
     void Update() {
         if (socket != null) {
-            lightType = socket.GetLightType();
-            SetLight();
+            if (prevLightType != socket.GetLightType() || prevScrewinState != socket.GetState()) {
+                lightType = socket.GetLightType();
+                SetLight();
+            }
+            prevLightType = socket.GetLightType();
+            prevScrewinState = socket.GetState();
         }
     }
 
@@ -64,15 +73,15 @@ public class LightManager : MonoBehaviour {
                 l.intensity = normalIntensity;
                 l.color = normalColor;
                 UVEvent.Invoke(false);
+                StateEvent.Invoke(true);
             } else if (lightType == LightState.UV) {
-                l.intensity = UVIntensity;
-                l.color = UVColor;
+                l.intensity = 0f;
                 UVEvent.Invoke(true);
             }
         } else {
             l.intensity = 0f;
             UVEvent.Invoke(false);
+            StateEvent.Invoke(false);
         }
-        StateEvent.Invoke(state && socket.GetState());
     }
 }

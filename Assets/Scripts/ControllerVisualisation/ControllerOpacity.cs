@@ -12,10 +12,25 @@ public class ControllerOpacity : MonoBehaviour {
 
     VRTK.VRTK_InteractTouch touch;
     VRTK.VRTK_ControllerActions controllerActions;
+    VRTK.VRTK_ControllerEvents controllerEvents;
 
     void Start() {
         touch = GetComponent<VRTK.VRTK_InteractTouch>();
         controllerActions = GetComponent<VRTK.VRTK_ControllerActions>();
+    }
+
+    void OnEnable() {
+        controllerEvents = GetComponent<VRTK.VRTK_ControllerEvents>();
+
+        controllerEvents.ControllerEnabled += ControllerEnable;
+    }
+
+    void OnDisable() {
+        controllerEvents.ControllerEnabled -= ControllerEnable;
+    }
+
+    void ControllerEnable(object sender, VRTK.ControllerInteractionEventArgs args) {
+        controllerActions.SetControllerOpacity(touch.IsRigidBodyActive() ? 1f : opactity);
     }
 
 	void Update() {

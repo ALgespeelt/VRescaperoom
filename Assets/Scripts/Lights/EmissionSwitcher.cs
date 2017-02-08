@@ -7,17 +7,16 @@ public class EmissionSwitcher : MonoBehaviour {
     [ColorUsageAttribute(false, true, 0, 100f, 0.125f, 3f)]
     public Color emmission;
     [SerializeField]
-    bool switchTexture = false;
+    bool useGI = true;
     [SerializeField]
     bool useLightmanagerEvent;
-
-    bool prevState = false;
 
     Renderer rnd;
 
     void Start() {
         rnd = GetComponent<Renderer>();
-        rnd.material.SetColor("_EmissionColor", Color.black);
+        setEmission(false);
+        DynamicGI.UpdateMaterials(rnd);
 
         if (useLightmanagerEvent) {
             GameObject.FindGameObjectWithTag("Lightmanager").GetComponent<LightManager>()
@@ -26,12 +25,11 @@ public class EmissionSwitcher : MonoBehaviour {
     }
 
     public void setEmission(bool toggle) {
-        if (toggle) {
-            rnd.material.SetColor("_EmissionColor", emmission);
-        } else {
-            rnd.material.SetColor("_EmissionColor", Color.black);
+        foreach (Material material in rnd.materials) {
+            material.SetColor("_EmissionColor", toggle ? emmission : Color.black);
         }
-        prevState = toggle;
+        if(useGI)
+            DynamicGI.UpdateMaterials(rnd);
     }
 
 }
