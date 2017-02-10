@@ -3,31 +3,47 @@ using System.Collections;
 
 public class KeyJoint : MonoBehaviour
 {
-    public string lockIdentifier;
+
+    [HideInInspector]
     public bool inserted = false;
-    public float threshold;
     public delegate void FinishAction();
 
-    private FinishAction onFinish;
-    private Quaternion targetAngle;
+    [SerializeField]
+    public string lockIdentifier;
+    [SerializeField]
+    float threshold;
+
+    FinishAction onFinish;
+    Quaternion targetAngle;
+    Collider[] cols;
+
+    void Start() {
+        cols = GetComponentsInChildren<Collider>();
+    }
 
     void FixedUpdate() {
         if (inserted) {
+            print(Quaternion.Angle(transform.rotation, targetAngle));
             if (Quaternion.Angle(transform.rotation, targetAngle) <= threshold) {
                 onFinish();
             } 
         }
     }
 
-    public void insert(FinishAction action, Quaternion targetAngle) {
+    public void insert(FinishAction action, Quaternion angle) {
         onFinish = action;
-        this.targetAngle = targetAngle;
-        targetAngle = transform.localRotation;
+        targetAngle = angle;
         inserted = true;
+        foreach (Collider col in cols) {
+            col.isTrigger = true;
+        }
     }
 
     public void eject() {
         inserted = false;
+        foreach (Collider col in cols) {
+            col.isTrigger = false;
+        }
     }
 
 }

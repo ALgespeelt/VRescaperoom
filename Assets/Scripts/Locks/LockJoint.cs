@@ -1,52 +1,56 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Unlocker))]
 public class LockJoint : MonoBehaviour {
 
-    public string lockIdentifier;
-    private Unlocker unlocker;
-    private Renderer rnd;
-    private GameObject key;
+    [SerializeField]
+    string lockIdentifier;
+
+    Unlocker unlocker;
+    GameObject key;
 
     void Start() {
         unlocker = GetComponent<Unlocker>();
-        if (unlocker == null) {
-            Debug.LogError("unlocker instance not found");
-        }
-        rnd = GetComponent<Renderer>();
     }
 
     public void Unlock() {
         unlocker.Unlock();
+        print("unLock");
     }
 
     public void Lock() {
         unlocker.Lock();
+        print("Lock");
     }
 
-    void OnTriggerEnter(Collider col) {
-        KeyJoint joint = col.GetComponent<KeyJoint>();
+    void OnTriggerStay(Collider col) {
+        KeyJoint joint = col.GetComponentInParent<KeyJoint>();
         if (joint != null) {
-            gameObject.layer = LayerMask.NameToLayer("keyuninteractable");
-
             string lockIden = joint.lockIdentifier;
             if (lockIden == lockIdentifier) {
                 if (unlocker.getClosed()) {
                     if (unlocker.isLocked()) {
-                        joint.insert(Unlock, Quaternion.Euler(-90, -90, 180));
+                        joint.insert(Unlock, Quaternion.Euler(- 90f, 0, 0));
+                        print("insertUnlock");
                     } else {
-                        joint.insert(Lock, Quaternion.Euler(90, 0, 90));
+                        joint.insert(Lock, Quaternion.Euler(90f, 0, 0));
+                        print("insertLock");
                     }
-                    key = col.gameObject;
+                    key = joint.gameObject;
                 }
             }
         }
     }
 
     void OnTriggerExit(Collider col) {
-        if(col.gameObject == key) {
-            gameObject.layer = LayerMask.NameToLayer("keyuninteractable");
-            key.GetComponent<KeyJoint>().eject();
+        KeyJoint joint = col.GetComponentInParent<KeyJoint>();
+        if (joint != null) {
+            if (joint.gameObject == key) {
+                key.GetComponent<KeyJoint>().eject();
+                key = null;
+                print("Exit");
+            }
         }
     }
 

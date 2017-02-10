@@ -2,16 +2,25 @@ using UnityEngine;
 using System.Collections;
 using System;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Unlocker_drawer : Unlocker {
 
     [SerializeField]
-    private bool locked;
-    public double closedThershold = 0.01;
-
-    private ConfigurableJoint joint;
+    bool locked;
+    [SerializeField]
+    Vector3 closedPosition;
+    [SerializeField]
+    float closedThershold = 0.01f;
+    
+    Rigidbody rb;
 
     void Start() {
-        joint = GetComponent<ConfigurableJoint>();
+        rb = GetComponent<Rigidbody>();
+        if (locked) {
+            Lock();
+        } else {
+            Unlock();
+        }
     }
 
     public override bool isLocked() {
@@ -19,16 +28,16 @@ public class Unlocker_drawer : Unlocker {
     }
 
     public override bool getClosed() {
-        return Mathf.Abs(transform.localPosition.z) < closedThershold;
+        return Vector3.Distance(closedPosition, transform.localPosition) < closedThershold;
     }
 
     public override void Lock() {
-        joint.zMotion = ConfigurableJointMotion.Locked;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
         locked = true;
     }
 
     public override void Unlock() {
-        joint.zMotion = ConfigurableJointMotion.Limited;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
         locked = false;
     }
 

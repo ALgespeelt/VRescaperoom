@@ -23,9 +23,11 @@ public class BreakScript : MonoBehaviour {
 
                 Rigidbody[] rbs = bgo.GetComponentsInChildren<Rigidbody>();
                 Vector3 vel = GetComponent<Rigidbody>().velocity;
+                Vector3 angVel = GetComponent<Rigidbody>().angularVelocity;
 
                 foreach (Rigidbody rb in rbs) {
                     rb.velocity = vel;
+                    rb.angularVelocity = angVel;
                 }
             }
 
