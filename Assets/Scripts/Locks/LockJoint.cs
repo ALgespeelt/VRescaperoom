@@ -16,12 +16,10 @@ public class LockJoint : MonoBehaviour {
 
     public void Unlock() {
         unlocker.Unlock();
-        print("unLock");
     }
 
     public void Lock() {
         unlocker.Lock();
-        print("Lock");
     }
 
     void OnTriggerStay(Collider col) {
@@ -32,10 +30,8 @@ public class LockJoint : MonoBehaviour {
                 if (unlocker.getClosed()) {
                     if (unlocker.isLocked()) {
                         joint.insert(Unlock, Quaternion.Euler(- 90f, 0, 0));
-                        print("insertUnlock");
                     } else {
                         joint.insert(Lock, Quaternion.Euler(90f, 0, 0));
-                        print("insertLock");
                     }
                     key = joint.gameObject;
                 }
@@ -49,7 +45,6 @@ public class LockJoint : MonoBehaviour {
             if (joint.gameObject == key) {
                 key.GetComponent<KeyJoint>().eject();
                 key = null;
-                print("Exit");
             }
         }
     }

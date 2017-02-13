@@ -23,7 +23,6 @@ public class KeyJoint : MonoBehaviour
 
     void FixedUpdate() {
         if (inserted) {
-            print(Quaternion.Angle(transform.rotation, targetAngle));
             if (Quaternion.Angle(transform.rotation, targetAngle) <= threshold) {
                 onFinish();
             } 
